@@ -2,14 +2,8 @@ const appdiv = document.querySelector("#app");
 appdiv.style.display = "none";
 
 const category = [
-  {
-    name: "Computer Science",
-    value: "computer",
-  },
-  {
-    name: "biology",
-    value: "bio",
-  },
+  { id: 123, name: "Computer Science", value: "computer" },
+  { id: 456, name: "Current Affairs", value: "current_affairs" },
 ];
 const quizForm = document.getElementById("quizForm");
 const categorySelect = document.getElementById("option");
@@ -35,67 +29,69 @@ const computer = [
   {
     id: 1,
     question: " 1.In which decade was the Internet first implemented?",
-    options: ["(A) 1940s", "(B) 1950s", "(C) 1960s", "(D) 1980s"],
-    answer: "(C) 1960s",
+    options: [
+      { id: 10, text: "(A)1960s", isCorrect: true },
+      { id: 20, text: "(B)1950s", isCorrect: false },
+      { id: 30, text: "(c)1980's", isCorrect: false },
+    ],
+    category: 123,
   },
   {
     id: 2,
     question: "2.Where are the contents of your computer's hard drive indexed?",
-    options: ["(A) Yahoo!", "(B) Google", "(C) MSN", "(D) None of the above"],
-    answer: "(D) None of the above",
+    options: [
+      { id: 40, text: "(A) Yahoo!", isCorrect: false },
+      { id: 50, text: "(B) Google", isCorrect: false },
+      { id: 60, text: "(D) None of the above", isCorrect: true },
+    ],
+    category: 123,
   },
   {
     id: 3,
-    question: " 3.ISP stands for:",
+    question: "3.ISP stands for:",
     options: [
-      "(A) Internet Survey Period",
-      "(B) Integrated Service Provider",
-      "(C) Internet Security Protocol",
-      "(D) Internet Service Provider",
+      { id: 70, text: "(A) Internet Survey Period", isCorrect: true },
+      { id: 80, text: "(B)Internet Service Provider", isCorrect: true },
+      { id: 90, text: "(c)Integrated Service Provider", isCorrect: false },
     ],
-    answer: "(D) Internet Service Provider",
+    category: 123,
   },
   {
     id: 4,
-    question: " 4.Internet Explorer is a:",
+    question: "4.Internet Explorer is a:",
     options: [
-      "(A) Any person browsing the net",
-      "(B) Web Browser",
-      "(C) Graphing Package",
-      "(D) News Reader",
+      { id: 21, text: "(A)Web Browser", isCorrect: true },
+      { id: 22, text: "(B)News Reader", isCorrect: false },
+      { id: 23, text: "(c)Graphing Package", isCorrect: false },
     ],
-    answer: "(B) Web Browser",
+    category: 123,
   },
-];
-const bio = [
   {
-    id: "5",
+    id: 5,
     question:
       "1.Which institution is to house India’s first technology business incubation centre based on green technology? ",
     options: [
-      " [A] IIT Madras",
-      "[B] NIT Srinagar",
-      "[C] IIT Roorkee",
-      "[D] NIT Tiruchirappalli",
+      { id: 24, text: "(A)NIT Srinagar", isCorrect: true },
+      { id: 25, text: "(B)News Reader", isCorrect: false },
+      { id: 26, text: "(c)Graphing Package", isCorrect: false },
     ],
-    answer: "[B] NIT Srinagar",
+    category: 456,
   },
   {
-    id: "6",
+    id: 6,
     question:
-      "2.Who is the head of the ‘Parliamentary committee on official languages’?",
+      "2.Who is the head of the ‘Parliamentary committee on official languages’? ",
     options: [
-      "[A] Rajnath Singh",
-      "[B] Amit Shah",
-      "[C] Nitin Gadkari",
-      "[D] Piyush Goyal",
+      { id: 24, text: "(A) Rajnath Singh", isCorrect: false },
+      { id: 25, text: "(B)Amit Shah", isCorrect: true },
+      { id: 26, text: "(c)Piyush Goyal", isCorrect: false },
     ],
-    answer: "[B] Amit Shah",
+    category: 456,
   },
 ];
+
 const questionCollection = {
   computer: computer,
-  bio: bio,
 };
 // const urlParams = new URLSearchParams(window.location.search);
 // const myType = urlParams.get("type");
@@ -137,7 +133,7 @@ function makeQuizDiv(quiz) {
     radio.setAttribute("class", "radioBtn");
     radio.value = quiz.options[i];
     label.appendChild(radio);
-    label.appendChild(document.createTextNode(quiz.options[i]));
+    label.appendChild(document.createTextNode(quiz.options[i]["text"]));
     subDiv.appendChild(label);
   }
   div.appendChild(h2);
@@ -153,6 +149,8 @@ button.innerHTML = "Check Answer";
 function appendToApp(quizDiv) {
   const app = document.querySelector("#app");
   app.appendChild(quizDiv);
+
+  saveToLocalStorage();
 }
 function updateQuizListUI(sub) {
   const app = document.querySelector("#app");
@@ -171,4 +169,8 @@ function goBack() {
   const quizdiv = document.querySelector("#quizForm");
   appdiv.style.display = "none";
   quizdiv.style.display = "block";
+}
+function saveToLocalStorage() {
+  const str = JSON.stringify(questionCollection);
+  localStorage.setItem("quiz", str);
 }

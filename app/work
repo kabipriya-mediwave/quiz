@@ -1,0 +1,38 @@
+const questions = [
+  {
+    id: 300,
+    title: "What color is the sky?",
+    options: [
+      { id: 10, text: "Blue", isCorrect: true },
+      { id: 20, text: "Red", isCorrect: false },
+      { id: 30, text: "Green", isCorrect: false },
+    ],
+    category: 2345,
+  }, ]
+  
+  const current_affairs = [
+    {
+      id: "5",
+      question:
+        "",
+      options: [
+        " [A] IIT Madras",
+        "[B] NIT Srinagar",
+        "[C] IIT Roorkee",
+        "[D] NIT Tiruchirappalli",
+      ],
+      answer: "[B] NIT Srinagar",
+    },
+    {
+      id: "6",
+      question:
+        "2.Who is the head of the ‘Parliamentary committee on official languages’?",
+      options: [
+        "[A] Rajnath Singh",
+        "[B] Amit Shah",
+        "[C] Nitin Gadkari",
+        "[D] Piyush Goyal",
+      ],
+      answer: "[B] Amit Shah",
+    },
+  ];
