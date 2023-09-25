@@ -50,7 +50,7 @@ const computer = [
     id: 3,
     question: "3.ISP stands for:",
     options: [
-      { id: 70, text: "(A) Internet Survey Period", isCorrect: true },
+      { id: 70, text: "(A) Internet Survey Period", isCorrect: false },
       { id: 80, text: "(B)Internet Service Provider", isCorrect: true },
       { id: 90, text: "(c)Integrated Service Provider", isCorrect: false },
     ],
@@ -106,18 +106,21 @@ function makeQuizDiv(quiz) {
   subDiv.setAttribute("class", "subdiv");
   const resDiv = document.createElement("div");
   resDiv.setAttribute("class", "res-div");
-
+  const button = document.createElement("button");
+  button.setAttribute("class", "btn");
+  button.innerHTML = "Check Answer";
   button.addEventListener("click", function () {
     const selectedOption = document.querySelector(
       `input[name="answer-${quiz.id}"]:checked`
     );
     if (selectedOption) {
       const selectedAnswer = selectedOption.value;
-      if (selectedAnswer === quiz.answer) {
+      const correctAnswer = quiz.options.find((option) => option.isCorrect);
+      if (selectedAnswer === correctAnswer.text) {
         resDiv.innerHTML = "Correct Answer!";
         resDiv.style.color = "green";
       } else {
-        resDiv.innerHTML = "Sorry,correct answer is " + quiz.answer;
+        resDiv.innerHTML = "Sorry, correct answer is " + correctAnswer.text;
         resDiv.style.color = "red";
       }
     } else {
@@ -131,9 +134,9 @@ function makeQuizDiv(quiz) {
     radio.setAttribute("type", "radio");
     radio.setAttribute("name", `answer-${quiz.id}`);
     radio.setAttribute("class", "radioBtn");
-    radio.value = quiz.options[i];
+    radio.value = quiz.options[i].text;
     label.appendChild(radio);
-    label.appendChild(document.createTextNode(quiz.options[i]["text"]));
+    label.appendChild(document.createTextNode(quiz.options[i].text));
     subDiv.appendChild(label);
   }
   div.appendChild(h2);
@@ -144,13 +147,11 @@ function makeQuizDiv(quiz) {
   return div;
 }
 const button = document.createElement("button");
-button.setAttribute("class", "btn");
-button.innerHTML = "Check Answer";
+// button.setAttribute("class", "btn");
+// button.innerHTML = "Check Answer";
 function appendToApp(quizDiv) {
   const app = document.querySelector("#app");
   app.appendChild(quizDiv);
-
-  saveToLocalStorage();
 }
 function updateQuizListUI(sub) {
   const app = document.querySelector("#app");
@@ -169,8 +170,4 @@ function goBack() {
   const quizdiv = document.querySelector("#quizForm");
   appdiv.style.display = "none";
   quizdiv.style.display = "block";
-}
-function saveToLocalStorage() {
-  const str = JSON.stringify(questionCollection);
-  localStorage.setItem("quiz", str);
 }
