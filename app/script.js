@@ -1,27 +1,28 @@
-const category = [
-  {
-    name: "Computer Science",
-    value: "Computer_Science",
-  },
-  {
-    name: "Current Affairs",
-    value: "current_Affairs",
-  },
-];
-
 const appdiv = document.querySelector("#app");
 appdiv.style.display = "none";
 
+const category = [
+  {
+    name: "Computer Science",
+    value: "computer",
+  },
+  {
+    name: "biology",
+    value: "bio",
+  },
+];
 const quizForm = document.getElementById("quizForm");
 const categorySelect = document.getElementById("option");
 document.getElementById("submit").addEventListener("click", function (e) {
   e.preventDefault();
   const appdiv = document.querySelector("#app");
   const quizdiv = document.querySelector("#quizForm");
-  var selectedValue = categorySelect.value;
+  let selectedValue = categorySelect.value;
+  console.log(selectedValue);
   // window.location.href = `index.html?type=${selectedValue}`;
   appdiv.style.display = "block";
   quizdiv.style.display = "none";
+  updateQuizListUI(selectedValue);
 });
 for (let sub of category) {
   const option = document.createElement("option");
@@ -30,7 +31,7 @@ for (let sub of category) {
   categorySelect.appendChild(option);
 }
 
-const Computer_Science = [
+const computer = [
   {
     id: 1,
     question: " 1.In which decade was the Internet first implemented?",
@@ -55,7 +56,7 @@ const Computer_Science = [
     answer: "(D) Internet Service Provider",
   },
   {
-    id: 3,
+    id: 4,
     question: " 4.Internet Explorer is a:",
     options: [
       "(A) Any person browsing the net",
@@ -66,9 +67,9 @@ const Computer_Science = [
     answer: "(B) Web Browser",
   },
 ];
-const current_affairs = [
+const bio = [
   {
-    id: "1",
+    id: "5",
     question:
       "1.Which institution is to house India’s first technology business incubation centre based on green technology? ",
     options: [
@@ -77,10 +78,10 @@ const current_affairs = [
       "[C] IIT Roorkee",
       "[D] NIT Tiruchirappalli",
     ],
-    correctAns: "[B] NIT Srinagar",
+    answer: "[B] NIT Srinagar",
   },
   {
-    id: "2",
+    id: "6",
     question:
       "2.Who is the head of the ‘Parliamentary committee on official languages’?",
     options: [
@@ -89,12 +90,12 @@ const current_affairs = [
       "[C] Nitin Gadkari",
       "[D] Piyush Goyal",
     ],
-    correctAns: "[B] Amit Shah",
+    answer: "[B] Amit Shah",
   },
 ];
 const questionCollection = {
-  Computer_Science: Computer_Science,
-  current_affairs: current_affairs,
+  computer: computer,
+  bio: bio,
 };
 // const urlParams = new URLSearchParams(window.location.search);
 // const myType = urlParams.get("type");
@@ -120,12 +121,12 @@ function makeQuizDiv(quiz) {
         resDiv.innerHTML = "Correct Answer!";
         resDiv.style.color = "green";
       } else {
-        resDiv.innerHTML = "correct answer is " + quiz.answer;
+        resDiv.innerHTML = "Sorry,correct answer is " + quiz.answer;
         resDiv.style.color = "red";
       }
     } else {
-      resDiv.innerHTML = "select an option.";
-      resDiv.style.color = "orange";
+      resDiv.innerHTML = "Please select an option.";
+      resDiv.style.color = "yellow";
     }
   });
   for (let i = 0; i < quiz.options.length; i++) {
@@ -153,9 +154,11 @@ function appendToApp(quizDiv) {
   const app = document.querySelector("#app");
   app.appendChild(quizDiv);
 }
-function updateQuizListUI() {
-  for (let i = 0; i < Computer_Science.length; i++) {
-    const quizDiv = makeQuizDiv(Computer_Science[i]);
+function updateQuizListUI(sub) {
+  const app = document.querySelector("#app");
+  app.innerHTML = "";
+  for (let i = 0; i < questionCollection[sub].length; i++) {
+    const quizDiv = makeQuizDiv(questionCollection[sub][i]);
     appendToApp(quizDiv);
   }
 }
@@ -169,5 +172,3 @@ function goBack() {
   appdiv.style.display = "none";
   quizdiv.style.display = "block";
 }
-
-updateQuizListUI();
