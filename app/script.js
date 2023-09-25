@@ -5,7 +5,7 @@ const category = [
   },
   {
     name: "current affairs",
-    value: "current affairs",
+    value: "current_affairs",
   },
 ];
 const quizForm = document.getElementById("quizForm");
@@ -14,7 +14,7 @@ const categorySelect = document.getElementById("option");
 document.getElementById("submit").addEventListener("click", function (e) {
   e.preventDefault();
   var selectedValue = categorySelect.value;
-  window.location.href = `computer_science.html?type=${selectedValue}`;
+  window.location.href = `computerscience.html?type=${selectedValue}`;
 });
 
 for (let sub of category) {
