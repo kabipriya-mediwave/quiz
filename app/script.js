@@ -96,9 +96,9 @@ const questionCollection = {
   Computer_Science: Computer_Science,
   current_affairs: current_affairs,
 };
-const urlParams = new URLSearchParams(window.location.search);
-const myType = urlParams.get("type");
-console.log(questionCollection[myType]);
+// const urlParams = new URLSearchParams(window.location.search);
+// const myType = urlParams.get("type");
+// console.log(questionCollection[myType]);
 function makeQuizDiv(quiz) {
   const div = document.createElement("div");
   div.setAttribute("id", `question-${quiz.id}`);
@@ -120,11 +120,11 @@ function makeQuizDiv(quiz) {
         resDiv.innerHTML = "Correct Answer!";
         resDiv.style.color = "green";
       } else {
-        resDiv.innerHTML = "Sorry,correct answer is " + quiz.answer;
+        resDiv.innerHTML = "correct answer is " + quiz.answer;
         resDiv.style.color = "red";
       }
     } else {
-      resDiv.innerHTML = "Please select an option.";
+      resDiv.innerHTML = "select an option.";
       resDiv.style.color = "orange";
     }
   });
