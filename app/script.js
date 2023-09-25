@@ -1,6 +1,6 @@
 const appdiv = document.querySelector("#app");
 appdiv.style.display = "none";
-
+let selectedValue;
 const category = [
   { id: 123, name: "Computer Science", value: "computer" },
   { id: 456, name: "Current Affairs", value: "current_affairs" },
@@ -11,11 +11,12 @@ document.getElementById("submit").addEventListener("click", function (e) {
   e.preventDefault();
   const appdiv = document.querySelector("#app");
   const quizdiv = document.querySelector("#quizForm");
-  let selectedValue = categorySelect.value;
+  selectedValue = categorySelect.value;
   console.log(selectedValue);
   // window.location.href = `index.html?type=${selectedValue}`;
   appdiv.style.display = "block";
   quizdiv.style.display = "none";
+  setLocalStorageItem("selectedCategory", selectedValue);
   updateQuizListUI(selectedValue);
 });
 for (let sub of category) {
@@ -171,3 +172,23 @@ function goBack() {
   appdiv.style.display = "none";
   quizdiv.style.display = "block";
 }
+function setLocalStorageItem(key, value) {
+  localStorage.setItem(key, JSON.stringify(value));
+  return true;
+}
+function getLocalStorageItem(key) {
+  try {
+    const storedValue = localStorage.getItem(key);
+    return storedValue ? JSON.parse(storedValue) : null;
+  } catch (error) {
+    console.error("Error retrieving data from localStorage:", error);
+    return null;
+  }
+}
+window.addEventListener("load", function () {
+  const storedCategory = getLocalStorageItem("selectedCategory");
+  if (storedCategory) {
+    selectedValue = storedCategory;
+    document.getElementById("proceed").click();
+  }
+});
