@@ -1,102 +1,122 @@
+const state = {
+  categories: [
+    {
+      id: 1,
+      name: "Computer Science",
+      value: "computer",
+    },
+    {
+      id: 2,
+      name: "biology",
+      value: "bio",
+    },
+  ],
+  questions: [
+    {
+      id: 220,
+      question: "1.In which decade was the Internet first implemented?",
+      options: [
+        { id: 10, text: "(A)1960s", isCorrect: true },
+        { id: 20, text: "(B)1970s", isCorrect: false },
+        { id: 30, text: "(C)1980s", isCorrect: false },
+        { id: 40, text: "(D)1990s", isCorrect: false },
+      ],
+      category: 1,
+    },
+    {
+      id: 230,
+      question:
+        "2.Where are the contents of your computer's hard drive indexed?",
+      options: [
+        { id: 50, text: "(A)yahoo", isCorrect: false },
+        { id: 60, text: "(b)google", isCorrect: false },
+        { id: 70, text: "(c)None of the above", isCorrect: true },
+        { id: 80, text: "(d)browser", isCorrect: false },
+      ],
+      category: 1,
+    },
+    {
+      id: 240,
+      question: "3.ISP stands for",
+      options: [
+        { id: 50, text: "A)Internet Service Provider", isCorrect: true },
+        { id: 51, text: "B) Internet Survey Period", isCorrect: false },
+        { id: 52, text: "(c)Integrated Service Provider", isCorrect: false },
+        { id: 53, text: "(D)Integrated survey provider", isCorrect: false },
+      ],
+      category: 1,
+    },
+    {
+      id: "250",
+      question: "Ozone hole refers to ",
+      options: [
+        { id: 54, text: "hole in ozone layer", isCorrect: false },
+        {
+          id: 55,
+          text: "decrease in thickness of ozone layer in stratosphere",
+          isCorrect: true,
+        },
+        {
+          id: 56,
+          text: "increase in the thickness of ozone layer in troposphere",
+          isCorrect: false,
+        },
+        {
+          id: 57,
+          text: "decrease in the ozone layer in troposphere",
+          isCorrect: false,
+        },
+      ],
+      category: 2,
+    },
+    {
+      id: "260",
+      question: "Plants receive their nutrients mainly from ",
+      options: [
+        { id: 59, text: "chlorophyll", isCorrect: false },
+        { id: 60, text: "atmosphere ", isCorrect: false },
+        { id: 61, text: "soil", isCorrect: true },
+        { id: 52, text: "grass", isCorrect: true },
+      ],
+      category: 2,
+    },
+    {
+      id: "270",
+      question: "Pollination is best defined as",
+      options: [
+        { id: 55, text: "germination of pollen grains", isCorrect: false },
+        { id: 56, text: "visiting flowers by insects", isCorrect: false },
+        {
+          id: 57,
+          text: "transfer of pollen from anther to stigma",
+          isCorrect: true,
+        },
+        { id: 58, text: "growth of pollen tube in ovule", isCorrect: false },
+      ],
+      category: 2,
+    },
+  ],
+};
 const appdiv = document.querySelector("#app");
 appdiv.style.display = "none";
-let selectedValue;
-const category = [
-  { id: 123, name: "Computer Science", value: "computer" },
-  { id: 456, name: "Current Affairs", value: "current_affairs" },
-];
 const quizForm = document.getElementById("quizForm");
 const categorySelect = document.getElementById("option");
 document.getElementById("submit").addEventListener("click", function (e) {
   e.preventDefault();
   const appdiv = document.querySelector("#app");
   const quizdiv = document.querySelector("#quizForm");
-  selectedValue = categorySelect.value;
+  let selectedValue = categorySelect.value;
   console.log(selectedValue);
-  // window.location.href = `index.html?type=${selectedValue}`;
   appdiv.style.display = "block";
   quizdiv.style.display = "none";
-  setLocalStorageItem("selectedCategory", selectedValue);
   updateQuizListUI(selectedValue);
 });
-for (let sub of category) {
+for (let sub of state.categories) {
   const option = document.createElement("option");
-  option.value = sub.value;
+  option.value = sub.id;
   option.innerHTML = sub.name;
   categorySelect.appendChild(option);
 }
-
-const computer = [
-  {
-    id: 1,
-    question: " 1.In which decade was the Internet first implemented?",
-    options: [
-      { id: 10, text: "(A)1960s", isCorrect: true },
-      { id: 20, text: "(B)1950s", isCorrect: false },
-      { id: 30, text: "(c)1980's", isCorrect: false },
-    ],
-    category: 123,
-  },
-  {
-    id: 2,
-    question: "2.Where are the contents of your computer's hard drive indexed?",
-    options: [
-      { id: 40, text: "(A) Yahoo!", isCorrect: false },
-      { id: 50, text: "(B) Google", isCorrect: false },
-      { id: 60, text: "(D) None of the above", isCorrect: true },
-    ],
-    category: 123,
-  },
-  {
-    id: 3,
-    question: "3.ISP stands for:",
-    options: [
-      { id: 70, text: "(A) Internet Survey Period", isCorrect: false },
-      { id: 80, text: "(B)Internet Service Provider", isCorrect: true },
-      { id: 90, text: "(c)Integrated Service Provider", isCorrect: false },
-    ],
-    category: 123,
-  },
-  {
-    id: 4,
-    question: "4.Internet Explorer is a:",
-    options: [
-      { id: 21, text: "(A)Web Browser", isCorrect: true },
-      { id: 22, text: "(B)News Reader", isCorrect: false },
-      { id: 23, text: "(c)Graphing Package", isCorrect: false },
-    ],
-    category: 123,
-  },
-  {
-    id: 5,
-    question:
-      "1.Which institution is to house India’s first technology business incubation centre based on green technology? ",
-    options: [
-      { id: 24, text: "(A)NIT Srinagar", isCorrect: true },
-      { id: 25, text: "(B)News Reader", isCorrect: false },
-      { id: 26, text: "(c)Graphing Package", isCorrect: false },
-    ],
-    category: 456,
-  },
-  {
-    id: 6,
-    question:
-      "2.Who is the head of the ‘Parliamentary committee on official languages’? ",
-    options: [
-      { id: 24, text: "(A) Rajnath Singh", isCorrect: false },
-      { id: 25, text: "(B)Amit Shah", isCorrect: true },
-      { id: 26, text: "(c)Piyush Goyal", isCorrect: false },
-    ],
-    category: 456,
-  },
-];
-
-const questionCollection = {
-  computer: computer,
-};
-// const urlParams = new URLSearchParams(window.location.search);
-// const myType = urlParams.get("type");
-// console.log(questionCollection[myType]);
 function makeQuizDiv(quiz) {
   const div = document.createElement("div");
   div.setAttribute("id", `question-${quiz.id}`);
@@ -107,26 +127,27 @@ function makeQuizDiv(quiz) {
   subDiv.setAttribute("class", "subdiv");
   const resDiv = document.createElement("div");
   resDiv.setAttribute("class", "res-div");
-  const button = document.createElement("button");
-  button.setAttribute("class", "btn");
-  button.innerHTML = "Check Answer";
+
   button.addEventListener("click", function () {
     const selectedOption = document.querySelector(
       `input[name="answer-${quiz.id}"]:checked`
     );
     if (selectedOption) {
-      const selectedAnswer = selectedOption.value;
+      const userAnswer = selectedOption.value;
+      const answerIndex = quiz["options"].findIndex(
+        (item) => item.text === userAnswer
+      );
       const correctAnswer = quiz.options.find((option) => option.isCorrect);
-      if (selectedAnswer === correctAnswer.text) {
+      if (quiz["options"][answerIndex].isCorrect) {
         resDiv.innerHTML = "Correct Answer!";
         resDiv.style.color = "green";
       } else {
-        resDiv.innerHTML = "Sorry, correct answer is " + correctAnswer.text;
+        resDiv.innerHTML = " correct answer is " + correctAnswer.text;
         resDiv.style.color = "red";
       }
     } else {
-      resDiv.innerHTML = "Please select an option.";
-      resDiv.style.color = "yellow";
+      resDiv.innerHTML = "select an option.";
+      resDiv.style.color = "orange";
     }
   });
   for (let i = 0; i < quiz.options.length; i++) {
@@ -148,17 +169,22 @@ function makeQuizDiv(quiz) {
   return div;
 }
 const button = document.createElement("button");
-// button.setAttribute("class", "btn");
-// button.innerHTML = "Check Answer";
+button.setAttribute("class", "btn");
+button.innerHTML = "Check Answer";
 function appendToApp(quizDiv) {
   const app = document.querySelector("#app");
   app.appendChild(quizDiv);
 }
 function updateQuizListUI(sub) {
+  quizForm.style.display = "none";
+  appdiv.style.display = "block";
+  setCategoryInStorage(sub);
   const app = document.querySelector("#app");
   app.innerHTML = "";
-  for (let i = 0; i < questionCollection[sub].length; i++) {
-    const quizDiv = makeQuizDiv(questionCollection[sub][i]);
+
+  const filteredQuestions = state.questions.filter((q) => q.category == sub);
+  for (let i = 0; i < filteredQuestions.length; i++) {
+    const quizDiv = makeQuizDiv(filteredQuestions[i]);
     appendToApp(quizDiv);
   }
 }
@@ -171,24 +197,19 @@ function goBack() {
   const quizdiv = document.querySelector("#quizForm");
   appdiv.style.display = "none";
   quizdiv.style.display = "block";
+  setCategoryInStorage("");
 }
-function setLocalStorageItem(key, value) {
-  localStorage.setItem(key, JSON.stringify(value));
-  return true;
+function setCategoryInStorage(categoryId) {
+  localStorage.setItem("selected_category", categoryId);
 }
-function getLocalStorageItem(key) {
-  try {
-    const storedValue = localStorage.getItem(key);
-    return storedValue ? JSON.parse(storedValue) : null;
-  } catch (error) {
-    console.error("Error retrieving data from localStorage:", error);
-    return null;
-  }
+function getCategoryFromStorage(categoryId) {
+  return localStorage.getItem("selected_category");
 }
-window.addEventListener("load", function () {
-  const storedCategory = getLocalStorageItem("selectedCategory");
+
+function checkIfCategoryIsSaved() {
+  const storedCategory = getCategoryFromStorage();
   if (storedCategory) {
-    selectedValue = storedCategory;
-    document.getElementById("proceed").click();
+    updateQuizListUI(storedCategory);
   }
-});
+}
+checkIfCategoryIsSaved();
