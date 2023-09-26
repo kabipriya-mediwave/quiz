@@ -13,7 +13,7 @@ const state = {
   ],
   questions: [
     {
-      id: 220,
+      id: 100,
       question: "1.In which decade was the Internet first implemented?",
       options: [
         { id: 10, text: "(A)1960s", isCorrect: true },
@@ -24,7 +24,7 @@ const state = {
       category: 1,
     },
     {
-      id: 230,
+      id: 200,
       question:
         "2.Where are the contents of your computer's hard drive indexed?",
       options: [
@@ -36,10 +36,10 @@ const state = {
       category: 1,
     },
     {
-      id: 240,
+      id: 300,
       question: "3.ISP stands for",
       options: [
-        { id: 50, text: "A)Internet Service Provider", isCorrect: true },
+        { id: 90, text: "A)Internet Service Provider", isCorrect: true },
         { id: 51, text: "B) Internet Survey Period", isCorrect: false },
         { id: 52, text: "(c)Integrated Service Provider", isCorrect: false },
         { id: 53, text: "(D)Integrated survey provider", isCorrect: false },
@@ -47,7 +47,7 @@ const state = {
       category: 1,
     },
     {
-      id: "250",
+      id: 400,
       question: "Ozone hole refers to ",
       options: [
         { id: 54, text: "hole in ozone layer", isCorrect: false },
@@ -70,28 +70,28 @@ const state = {
       category: 2,
     },
     {
-      id: "260",
+      id: 500,
       question: "Plants receive their nutrients mainly from ",
       options: [
-        { id: 59, text: "chlorophyll", isCorrect: false },
-        { id: 60, text: "atmosphere ", isCorrect: false },
-        { id: 61, text: "soil", isCorrect: true },
-        { id: 52, text: "grass", isCorrect: true },
+        { id: 58, text: "chlorophyll", isCorrect: false },
+        { id: 59, text: "atmosphere ", isCorrect: false },
+        { id: 60, text: "soil", isCorrect: true },
+        { id: 61, text: "grass", isCorrect: true },
       ],
       category: 2,
     },
     {
-      id: "270",
+      id: 600,
       question: "Pollination is best defined as",
       options: [
-        { id: 55, text: "germination of pollen grains", isCorrect: false },
-        { id: 56, text: "visiting flowers by insects", isCorrect: false },
+        { id: 62, text: "germination of pollen grains", isCorrect: false },
+        { id: 63, text: "visiting flowers by insects", isCorrect: false },
         {
-          id: 57,
+          id: 64,
           text: "transfer of pollen from anther to stigma",
           isCorrect: true,
         },
-        { id: 58, text: "growth of pollen tube in ovule", isCorrect: false },
+        { id: 65, text: "growth of pollen tube in ovule", isCorrect: false },
       ],
       category: 2,
     },
@@ -135,7 +135,7 @@ function makeQuizDiv(quiz) {
     if (selectedOption) {
       const userAnswer = selectedOption.value;
       const answerIndex = quiz["options"].findIndex(
-        (item) => item.text === userAnswer
+        (item) => item.id == userAnswer
       );
       const correctAnswer = quiz.options.find((option) => option.isCorrect);
       if (quiz["options"][answerIndex].isCorrect) {
@@ -156,7 +156,7 @@ function makeQuizDiv(quiz) {
     radio.setAttribute("type", "radio");
     radio.setAttribute("name", `answer-${quiz.id}`);
     radio.setAttribute("class", "radioBtn");
-    radio.value = quiz.options[i].text;
+    radio.value = quiz.options[i].id;
     label.appendChild(radio);
     label.appendChild(document.createTextNode(quiz.options[i].text));
     subDiv.appendChild(label);
